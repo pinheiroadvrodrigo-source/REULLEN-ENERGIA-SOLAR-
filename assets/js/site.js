@@ -259,16 +259,25 @@ async function perguntaCidade(){
   step = 'cidade';
 }
 async function perguntaTelhado(){
-  await say('Última: como é o telhado?');
-  const set = t => () => { lead.telhado = t; finalizar(); };
+  await say('Quase lá! Como é o telhado?');
+  const set = t => () => { lead.telhado = t; perguntaWhats(); };
   options([['Cerâmica', set('Cerâmica')], ['Fibrocimento/Brasilit', set('Fibrocimento')], ['Metálico', set('Metálico')], ['Laje', set('Laje')], ['No solo / não sei', set('Não sei / solo')]]);
   step = 'telhado';
 }
+async function perguntaWhats(){
+  await say('E qual é o seu WhatsApp com DDD? Assim nossa equipe te chama com o orçamento. 📱<br><small style="color:#5b6b85">Ao informar, você autoriza a RR Engenharia Solar a entrar em contato. Seus dados ficam protegidos conforme a LGPD.</small>');
+  options([['Prefiro não informar', () => { lead.whats = ''; finalizar(); }]]);
+  step = 'whats';
+}
 async function finalizar(){
   step = 'livre';
+  if (lead.whats && window.rrSalvarLead) {
+    const cid = String(lead.cidade || '');
+    window.rrSalvarLead({ nome: lead.nome, whatsapp: lead.whats, cidade: cid, conta: lead.conta, tipo: lead.tipo, origem: 'chatbot', consentimento: true });
+  }
   await say(`Prontinho${primeiroNome()}! ✅ Já organizei tudo. Toque no botão abaixo para enviar no WhatsApp da RR.`);
   await say('📸 Dica: mande junto uma <b>foto da sua conta de luz</b> — assim o orçamento sai ainda mais preciso!');
-  const msg = `Olá! Vim através do site e gostaria de fazer um orçamento de energia solar.\n\n👤 Nome: ${lead.nome}\n🏠 Imóvel: ${lead.tipo}\n💡 Conta de luz: ${lead.conta}\n📍 Local: ${lead.cidade}\n🏚️ Telhado: ${lead.telhado}`;
+  const msg = `Olá! Vim através do site e gostaria de fazer um orçamento de energia solar.\n\n👤 Nome: ${lead.nome}\n🏠 Imóvel: ${lead.tipo}\n💡 Conta de luz: ${lead.conta}\n📍 Local: ${lead.cidade}\n🏚️ Telhado: ${lead.telhado}${lead.whats ? '\n📱 WhatsApp: ' + lead.whats : ''}`;
   options([['📲 Enviar no WhatsApp', () => abrirWA(msg), 'wa'], ['❓ Tirar outra dúvida', () => menuPrincipal('Claro! Qual a outra dúvida?')]]);
 }
 
@@ -307,7 +316,11 @@ async function livre(txt){
   }
   if (step === 'tipo') { lead.tipo = txt; return perguntaConta(); }
   if (step === 'cidade') { lead.cidade = txt; return perguntaTelhado(); }
-  if (step === 'telhado') { lead.telhado = txt; return finalizar(); }
+  if (step === 'telhado') { lead.telhado = txt; return perguntaWhats(); }
+  if (step === 'whats') {
+    if (txt.replace(/\D/g, '').length < 10) { await say('Hmm, parece que faltou o DDD 😅 Digite assim: 91 98888-7777'); return; }
+    lead.whats = txt; return finalizar();
+  }
   if (step === 'cidade_check') {
     step = 'livre';
     if (CIDADES_RM.test(t)) await say(`Atendemos sim em ${txt}! 🙌 Quer que eu já monte seu orçamento?`);

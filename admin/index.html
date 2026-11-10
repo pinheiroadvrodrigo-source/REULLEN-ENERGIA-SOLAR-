@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Área de Membros | RR Engenharia Solar</title>
+<link rel="icon" href="../assets/img/logo-icone.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+<style>
+[hidden]{display:none!important}
+body{background:var(--bg)}
+.adm-top{background:var(--navy);color:#fff;position:sticky;top:0;z-index:20;box-shadow:0 8px 30px -12px rgba(0,0,0,.55)}
+.adm-top .wrap{display:flex;align-items:center;justify-content:space-between;height:70px;gap:12px}
+.adm-top .who{display:flex;align-items:center;gap:12px;font-size:.9rem;color:#b8c6e0}
+.adm-top button{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:8px 16px;font-family:inherit;font-weight:700;cursor:pointer}
+.login{min-height:calc(100vh - 70px);display:grid;place-items:center;padding:30px 16px}
+.login-box{width:min(420px,100%);background:#fff;border-radius:24px;padding:34px 30px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.login-box h1{font-size:2.1rem;text-transform:uppercase;color:var(--navy)}
+.login-box p{color:var(--muted);margin:6px 0 22px}
+.fld{display:block;margin-bottom:14px}
+.fld span{display:block;font-weight:700;font-size:.9rem;margin-bottom:6px;color:var(--navy)}
+.fld input,.fld select{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-family:inherit;font-size:16px;background:#fff;color:var(--ink)}
+.fld input:focus,.fld select:focus{outline:none;border-color:var(--blue)}
+.err{color:#c62828;font-weight:600;font-size:.92rem;min-height:1.3em;margin:4px 0 10px}
+.aviso{background:#fff8e1;border:1px solid #ffe08a;color:#6b4e00;border-radius:16px;padding:16px 18px;margin:24px 0;font-weight:500}
+.aviso code{background:#fff;padding:1px 6px;border-radius:6px}
+.dash{padding:28px 0 60px}
+.dash h2{font-size:1.9rem;text-transform:uppercase;color:var(--navy);margin:34px 0 14px}
+.dash h2:first-child{margin-top:0}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.periodo{display:flex;gap:6px;flex-wrap:wrap}
+.periodo button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--navy)}
+.periodo button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 18px 16px}
+.kpi span{display:block;color:var(--muted);font-size:.88rem;font-weight:600}
+.kpi b{display:block;font-family:'Barlow Condensed','Arial Narrow',Arial,sans-serif;font-size:2.5rem;line-height:1.05;color:var(--navy)}
+.kpi small{color:var(--muted)}
+.kpi.dk{background:var(--navy);border:0}.kpi.dk span,.kpi.dk small{color:#a9b9d6}.kpi.dk b{color:var(--sun)}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}
+.chart{display:flex;align-items:flex-end;gap:3px;height:180px;padding-top:10px}
+.chart div{flex:1;background:var(--blue);border-radius:4px 4px 0 0;min-height:2px;position:relative}
+.chart div:hover{background:var(--navy)}
+.chart div:hover::after{content:attr(data-t);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:.75rem;padding:4px 8px;border-radius:8px;white-space:nowrap;z-index:2}
+.chart-x{display:flex;justify-content:space-between;color:var(--muted);font-size:.78rem;margin-top:6px}
+.two{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.list{list-style:none;display:grid;gap:8px}
+.list li{display:flex;justify-content:space-between;gap:12px;font-size:.93rem;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.list li span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.list li b{color:var(--navy)}
+.tbl-wrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:18px}
+table.tb{width:100%;border-collapse:collapse;font-size:.92rem;min-width:860px}
+.tb th{background:var(--bg);text-align:left;padding:12px;color:var(--navy);font-size:.82rem;text-transform:uppercase;letter-spacing:.5px}
+.tb td{padding:11px 12px;border-top:1px solid var(--line);vertical-align:middle}
+.tb td select{border:1.5px solid var(--line);border-radius:10px;padding:6px 8px;font-family:inherit}
+.tb .wa{display:inline-flex;align-items:center;gap:6px;background:var(--wa);color:#fff;font-weight:700;padding:6px 12px;border-radius:999px;font-size:.85rem}
+.tb .del{background:none;border:0;color:#c62828;cursor:pointer;font-weight:700}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.tools input{border:1.5px solid var(--line);border-radius:999px;padding:9px 16px;font-family:inherit;font-size:15px;min-width:220px}
+.vazio{padding:30px;text-align:center;color:var(--muted)}
+.load{color:var(--muted);padding:30px;text-align:center}
+@media (max-width:900px){.kpis{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="adm-top"><div class="wrap">
+  <a href="../index.html" class="brand"><img src="../assets/img/logo-icone.jpg" alt="" width="46" height="46"><div><b>RR ENGENHARIA</b><small>ÁREA DE MEMBROS</small></div></a>
+  <div class="who" id="who" hidden><span id="whoEmail"></span><button id="sair">Sair</button></div>
+</div></div>
+
+<!-- LOGIN -->
+<section class="login" id="telaLogin">
+  <form class="login-box" id="fLogin">
+    <h1>Área de membros</h1>
+    <p>Entre para ver os acessos do site e os cadastros de clientes.</p>
+    <div class="aviso" id="semConfig" hidden>⚙️ O banco de dados ainda não foi configurado. Preencha <code>assets/js/config.js</code> com os dados do Supabase.</div>
+    <label class="fld"><span>E-mail</span><input type="email" name="email" autocomplete="username" required></label>
+    <label class="fld"><span>Senha</span><input type="password" name="senha" autocomplete="current-password" required></label>
+    <div class="err" id="loginErr"></div>
+    <button class="btn btn-sun" style="width:100%" type="submit">Entrar</button>
+  </form>
+</section>
+
+<!-- PAINEL -->
+<main class="dash" id="telaPainel" hidden>
+  <div class="wrap">
+    <div class="bar"><h2 style="margin:0">Acessos ao site</h2>
+      <div class="periodo" id="periodo"><button data-d="1">Hoje</button><button data-d="7">7 dias</button><button data-d="30" class="on">30 dias</button><button data-d="90">90 dias</button></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi dk"><span>Acessos no período</span><b id="kVis">–</b><small id="kVisSub"></small></div>
+      <div class="kpi"><span>Visitantes únicos</span><b id="kUni">–</b><small>pessoas diferentes</small></div>
+      <div class="kpi"><span>Acessos hoje</span><b id="kHoje">–</b><small id="kOntem"></small></div>
+      <div class="kpi"><span>Total desde o início</span><b id="kTot">–</b><small>todos os acessos</small></div>
+    </div>
+    <div class="card" style="margin-top:14px"><b style="color:var(--navy)">Acessos por dia</b><div class="chart" id="chart"></div><div class="chart-x" id="chartX"></div></div>
+    <div class="two" style="margin-top:14px">
+      <div class="card"><b style="color:var(--navy)">Páginas mais vistas</b><ul class="list" id="lPag" style="margin-top:12px"></ul></div>
+      <div class="card"><b style="color:var(--navy)">De onde vieram</b><ul class="list" id="lRef" style="margin-top:12px"></ul></div>
+      <div class="card"><b style="color:var(--navy)">Aparelho</b><ul class="list" id="lDisp" style="margin-top:12px"></ul></div>
+    </div>
+
+    <div class="bar" style="margin-top:34px"><h2 style="margin:0">Cadastros de clientes</h2>
+      <div class="tools"><input id="busca" placeholder="Buscar nome, cidade, WhatsApp..."><button class="btn btn-sun" id="csv" style="padding:10px 18px">⬇ Baixar planilha (CSV)</button></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi dk"><span>Cadastros no período</span><b id="kLead">–</b><small id="kLeadSub"></small></div>
+      <div class="kpi"><span>Novos (sem contato)</span><b id="kNovo">–</b><small>aguardando retorno</small></div>
+      <div class="kpi"><span>Fechados</span><b id="kFech">–</b><small>no período</small></div>
+      <div class="kpi"><span>Conversão</span><b id="kConv">–</b><small>cadastros ÷ visitantes</small></div>
+    </div>
+    <div class="tbl-wrap" style="margin-top:14px"><table class="tb"><thead><tr><th>Data</th><th>Nome</th><th>WhatsApp</th><th>Cidade / bairro</th><th>Imóvel</th><th>Conta</th><th>Origem</th><th>Status</th><th></th></tr></thead><tbody id="tbLeads"><tr><td colspan="9" class="load">Carregando...</td></tr></tbody></table></div>
+  </div>
+</main>
+
+<script src="../assets/js/config.js"></script>
+<script>
+(function(){
+const C = window.RR_CONFIG || {};
+const BASE = String(C.supabaseUrl || '').replace(/\/+$/, '');
+const KEY = C.supabaseKey;
+const configurado = /^https:\/\/.+/.test(BASE) && KEY && !/COLE_AQUI/.test(KEY);
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num = n => Number(n || 0).toLocaleString('pt-BR');
+const STATUS = ['novo','em contato','orçamento enviado','fechado','perdido'];
+let sess = null, dias = 30, leads = [], visitas = [];
+
+if (!configurado) $('#semConfig').hidden = false;
+try { sess = JSON.parse(sessionStorage.getItem('rr_sess') || 'null'); } catch(e) {}
+
+function headers(extra){ return Object.assign({ apikey: KEY, Authorization: 'Bearer ' + sess.access_token, 'Content-Type': 'application/json' }, extra || {}); }
+async function api(path, opt){
+  const r = await fetch(BASE + '/rest/v1/' + path, Object.assign({ headers: headers(opt && opt.h) }, opt));
+  if (r.status === 401) { sair(); throw new Error('Sessão expirada'); }
+  if (!r.ok) throw new Error(await r.text());
+  return r;
+}
+async function todos(path){ // busca em páginas de 1000 linhas
+  let out = [], de = 0;
+  while (true) {
+    const r = await api(path, { h: { Range: `${de}-${de + 999}`, 'Range-Unit': 'items' } });
+    const lote = await r.json(); out = out.concat(lote);
+    if (lote.length < 1000 || out.length >= 100000) break; de += 1000;
+  }
+  return out;
+}
+
+$('#fLogin').addEventListener('submit', async e => {
+  e.preventDefault(); const f = e.target; $('#loginErr').textContent = '';
+  if (!configurado) { $('#loginErr').textContent = 'Configure o Supabase primeiro.'; return; }
+  try {
+    const r = await fetch(BASE + '/auth/v1/token?grant_type=password', { method: 'POST', headers: { apikey: KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ email: f.email.value.trim(), password: f.senha.value }) });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error_description || j.msg || 'Falha no login');
+    sess = { access_token: j.access_token, email: j.user && j.user.email };
+    try { sessionStorage.setItem('rr_sess', JSON.stringify(sess)); } catch(e) {}
+    abrir();
+  } catch (err) { $('#loginErr').textContent = /Invalid login/i.test(err.message) ? 'E-mail ou senha incorretos.' : err.message; }
+});
+function sair(){ sess = null; try { sessionStorage.removeItem('rr_sess'); } catch(e) {} $('#telaPainel').hidden = true; $('#who').hidden = true; $('#telaLogin').hidden = false; }
+$('#sair').onclick = sair;
+
+async function abrir(){
+  $('#telaLogin').hidden = true; $('#telaPainel').hidden = false; $('#who').hidden = false; $('#whoEmail').textContent = sess.email || '';
+  await carregar();
+}
+document.querySelectorAll('#periodo button').forEach(b => b.onclick = () => { document.querySelectorAll('#periodo button').forEach(x => x.classList.remove('on')); b.classList.add('on'); dias = +b.dataset.d; carregar(); });
+
+function inicioPeriodo(d){ const t = new Date(); t.setHours(0,0,0,0); t.setDate(t.getDate() - (d - 1)); return t; }
+const diaKey = dt => { const d = new Date(dt); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); };
+
+async function carregar(){
+  try {
+    const ini = inicioPeriodo(Math.max(dias, 2)).toISOString();
+    const [v, l, tot] = await Promise.all([
+      todos(`visitas?select=created_at,pagina,referencia,dispositivo,visitante&created_at=gte.${ini}&order=created_at.desc`),
+      todos(`leads?select=*&created_at=gte.${inicioPeriodo(dias).toISOString()}&order=created_at.desc`),
+      api('visitas?select=id', { method: 'HEAD', h: { Prefer: 'count=exact', Range: '0-0' } })
+    ]);
+    visitas = v; leads = l;
+    const cr = tot.headers.get('content-range') || ''; $('#kTot').textContent = num(cr.split('/')[1] || 0);
+    pintarVisitas(); pintarLeads();
+  } catch (err) {
+    if (/permission|42501/i.test(err.message)) { $('#tbLeads').innerHTML = '<tr><td colspan="9" class="vazio">Seu e-mail não está na lista de administradores (tabela <b>admins</b> no Supabase).</td></tr>'; }
+    else console.error(err);
+  }
+}
+
+function contar(arr, fn){ const m = {}; arr.forEach(x => { const k = fn(x); if (k) m[k] = (m[k] || 0) + 1; }); return Object.entries(m).sort((a,b) => b[1] - a[1]); }
+function nomePagina(p){ p = p || '/'; if (/\/admin\//.test(p)) return null; if (/\/$|index\.html$/.test(p) && !/blog/.test(p)) return 'Página inicial'; if (/\/blog\/(index\.html)?$/.test(p)) return 'Blog (lista)'; const m = p.match(/blog\/([^/]+)\.html/); return m ? '📝 ' + m[1].replace(/-/g,' ') : p; }
+
+function pintarVisitas(){
+  const ini = inicioPeriodo(dias), noPer = visitas.filter(x => new Date(x.created_at) >= ini);
+  $('#kVis').textContent = num(noPer.length);
+  $('#kVisSub').textContent = dias === 1 ? 'hoje' : `últimos ${dias} dias`;
+  $('#kUni').textContent = num(new Set(noPer.map(x => x.visitante).filter(Boolean)).size);
+  const hoje = diaKey(new Date()), ontemD = new Date(); ontemD.setDate(ontemD.getDate() - 1);
+  $('#kHoje').textContent = num(visitas.filter(x => diaKey(x.created_at) === hoje).length);
+  $('#kOntem').textContent = 'ontem: ' + num(visitas.filter(x => diaKey(x.created_at) === diaKey(ontemD)).length);
+  // gráfico
+  const nd = Math.max(dias, 7), base = inicioPeriodo(nd), cont = {};
+  visitas.forEach(x => { const k = diaKey(x.created_at); cont[k] = (cont[k] || 0) + 1; });
+  const serie = []; for (let i = 0; i < nd; i++) { const d = new Date(base); d.setDate(base.getDate() + i); serie.push([d, cont[diaKey(d)] || 0]); }
+  const max = Math.max(1, ...serie.map(s => s[1]));
+  $('#chart').innerHTML = serie.map(([d, n]) => `<div style="height:${Math.max(1.5, n / max * 100)}%" data-t="${d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}: ${n} acessos"></div>`).join('');
+  const f = d => d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+  $('#chartX').innerHTML = `<span>${f(serie[0][0])}</span><span>${f(serie[serie.length-1][0])}</span>`;
+  const li = (arr, vazio) => arr.length ? arr.slice(0, 8).map(([k, n]) => `<li><span>${esc(k)}</span><b>${num(n)}</b></li>`).join('') : `<li><span style="color:var(--muted)">${vazio}</span></li>`;
+  $('#lPag').innerHTML = li(contar(noPer, x => nomePagina(x.pagina)), 'Sem acessos no período');
+  $('#lRef').innerHTML = li(contar(noPer, x => { const r = (x.referencia || '').replace(/^www\./, ''); if (!r) return 'Direto / WhatsApp'; if (/google/.test(r)) return 'Google'; if (/instagram/.test(r)) return 'Instagram'; if (/facebook|fb\./.test(r)) return 'Facebook'; return r; }), 'Sem dados');
+  $('#lDisp').innerHTML = li(contar(noPer, x => x.dispositivo === 'celular' ? '📱 Celular' : '💻 Computador'), 'Sem dados');
+  const uni = new Set(noPer.map(x => x.visitante).filter(Boolean)).size;
+  $('#kConv').textContent = uni ? (leads.length / uni * 100).toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + '%' : '–';
+}
+
+function pintarLeads(){
+  $('#kLead').textContent = num(leads.length);
+  $('#kLeadSub').textContent = dias === 1 ? 'hoje' : `últimos ${dias} dias`;
+  $('#kNovo').textContent = num(leads.filter(x => x.status === 'novo').length);
+  $('#kFech').textContent = num(leads.filter(x => x.status === 'fechado').length);
+  const q = ($('#busca').value || '').toLowerCase();
+  const lista = leads.filter(x => !q || [x.nome, x.cidade, x.bairro, x.whatsapp, x.tipo].join(' ').toLowerCase().includes(q));
+  if (!lista.length) { $('#tbLeads').innerHTML = '<tr><td colspan="9" class="vazio">Nenhum cadastro no período.</td></tr>'; return; }
+  $('#tbLeads').innerHTML = lista.map(x => {
+    const w = String(x.whatsapp || '').replace(/\D/g, '').replace(/^55(?=\d{10,11}$)/, ''), w55 = '55' + w;
+    const fmt = w.length >= 10 ? `(${w.slice(0, 2)}) ${w.slice(2, -4)}-${w.slice(-4)}` : esc(x.whatsapp);
+    const msg = encodeURIComponent(`Olá, ${String(x.nome || '').split(' ')[0]}! Aqui é da RR Engenharia Solar. Recebemos seu cadastro no site e vamos preparar seu estudo de economia. ☀️`);
+    return `<tr data-id="${x.id}">
+      <td>${new Date(x.created_at).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' })}</td>
+      <td><b>${esc(x.nome)}</b></td>
+      <td><a class="wa" href="https://wa.me/${w55}?text=${msg}" target="_blank" rel="noopener">💬 ${fmt}</a></td>
+      <td>${esc(x.cidade)}${x.bairro ? ' · ' + esc(x.bairro) : ''}</td>
+      <td>${esc(x.tipo)}</td><td>${esc(x.conta)}</td><td>${esc(x.origem)}</td>
+      <td><select class="st">${STATUS.map(s => `<option${s === x.status ? ' selected' : ''}>${s}</option>`).join('')}</select></td>
+      <td><button class="del" title="Apagar cadastro">✕</button></td></tr>`;
+  }).join('');
+}
+$('#busca').addEventListener('input', pintarLeads);
+$('#tbLeads').addEventListener('change', async e => {
+  if (!e.target.classList.contains('st')) return;
+  const id = e.target.closest('tr').dataset.id, st = e.target.value;
+  try { await api(`leads?id=eq.${id}`, { method: 'PATCH', body: JSON.stringify({ status: st }), h: { Prefer: 'return=minimal' } }); const l = leads.find(x => String(x.id) === id); if (l) l.status = st; pintarLeads(); }
+  catch (err) { alert('Não foi possível salvar o status.'); }
+});
+$('#tbLeads').addEventListener('click', async e => {
+  if (!e.target.classList.contains('del')) return;
+  const tr = e.target.closest('tr'), id = tr.dataset.id, l = leads.find(x => String(x.id) === id);
+  if (!confirm(`Apagar o cadastro de ${l ? l.nome : 'este cliente'}? Isso não pode ser desfeito.`)) return;
+  try { await api(`leads?id=eq.${id}`, { method: 'DELETE', h: { Prefer: 'return=minimal' } }); leads = leads.filter(x => String(x.id) !== id); pintarLeads(); }
+  catch (err) { alert('Não foi possível apagar.'); }
+});
+$('#csv').onclick = () => {
+  const cols = ['created_at','nome','whatsapp','cidade','bairro','tipo','conta','origem','status'];
+  const cab = ['Data','Nome','WhatsApp','Cidade','Bairro','Imóvel','Conta de luz','Origem','Status'];
+  const linhas = [cab].concat(leads.map(x => cols.map(c => c === 'created_at' ? new Date(x[c]).toLocaleString('pt-BR') : (x[c] == null ? '' : x[c]))));
+  const csv = '﻿' + linhas.map(r => r.map(v => '"' + String(v).replace(/"/g, '""') + '"').join(';')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  a.download = 'cadastros-rr-engenharia-solar.csv'; a.click();
+};
+
+if (sess && sess.access_token && configurado) abrir();
+})();
+</script>
+</body>
+</html>
