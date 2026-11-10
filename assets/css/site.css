@@ -445,3 +445,10 @@ footer a:hover{color:var(--sun)}
 @media (max-width:540px){.cad-row{grid-template-columns:1fr;gap:0}.cad-card{padding:22px 18px}}
 [hidden]{display:none!important}
 @media (max-width:640px){#filtro{flex-wrap:nowrap;overflow-x:auto;margin-inline:-16px;padding:0 16px 6px;scrollbar-width:none}#filtro::-webkit-scrollbar{display:none}#filtro .chip{flex:none;padding:7px 13px;font-size:.86rem}}
+
+/* ===== Borda dourada discreta em fotos e vídeos ===== */
+:root{--gold:rgba(214,178,74,.75)}
+.hero-visual .main,.vid,.gal figure,.about-imgs img,.art .cover,.church{box-shadow:0 0 0 1.5px var(--gold),var(--shadow)}
+.hero-visual .main{border-color:transparent}
+.post-card img{border-bottom:1.5px solid var(--gold)}
+.post-card{border-color:rgba(214,178,74,.35)}
