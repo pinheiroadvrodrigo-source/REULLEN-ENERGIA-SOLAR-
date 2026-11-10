@@ -78,7 +78,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:.92rem;min-width:860px}
     <h1>Área de membros</h1>
     <p>Entre para ver os acessos do site e os cadastros de clientes.</p>
     <div class="aviso" id="semConfig" hidden>⚙️ O banco de dados ainda não foi configurado. Preencha <code>assets/js/config.js</code> com os dados do Supabase.</div>
-    <label class="fld"><span>E-mail</span><input type="email" name="email" autocomplete="username" required></label>
+    <label class="fld"><span>Usuário</span><input type="text" name="email" autocomplete="username" autocapitalize="none" spellcheck="false" required placeholder="reullen"></label>
     <label class="fld"><span>Senha</span><input type="password" name="senha" autocomplete="current-password" required></label>
     <div class="err" id="loginErr"></div>
     <button class="btn btn-sun" style="width:100%" type="submit">Entrar</button>
@@ -150,17 +150,19 @@ async function todos(path){ // busca em páginas de 1000 linhas
   return out;
 }
 
+// Usuário simples (ex.: reullen) vira e-mail interno do Supabase: reullen@rrengenhariasolar-pa.com.br
+const usuarioParaEmail = u => { u = u.trim().toLowerCase(); return u.includes('@') ? u : u + '@rrengenhariasolar-pa.com.br'; };
 $('#fLogin').addEventListener('submit', async e => {
   e.preventDefault(); const f = e.target; $('#loginErr').textContent = '';
   if (!configurado) { $('#loginErr').textContent = 'Configure o Supabase primeiro.'; return; }
   try {
-    const r = await fetch(BASE + '/auth/v1/token?grant_type=password', { method: 'POST', headers: { apikey: KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ email: f.email.value.trim(), password: f.senha.value }) });
+    const r = await fetch(BASE + '/auth/v1/token?grant_type=password', { method: 'POST', headers: { apikey: KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ email: usuarioParaEmail(f.email.value), password: f.senha.value }) });
     const j = await r.json();
     if (!r.ok) throw new Error(j.error_description || j.msg || 'Falha no login');
     sess = { access_token: j.access_token, email: j.user && j.user.email };
     try { sessionStorage.setItem('rr_sess', JSON.stringify(sess)); } catch(e) {}
     abrir();
-  } catch (err) { $('#loginErr').textContent = /Invalid login/i.test(err.message) ? 'E-mail ou senha incorretos.' : err.message; }
+  } catch (err) { $('#loginErr').textContent = /Invalid login/i.test(err.message) ? 'Usuário ou senha incorretos.' : err.message; }
 });
 function sair(){ sess = null; try { sessionStorage.removeItem('rr_sess'); } catch(e) {} $('#telaPainel').hidden = true; $('#who').hidden = true; $('#telaLogin').hidden = false; }
 $('#sair').onclick = sair;

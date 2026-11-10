@@ -67,5 +67,6 @@ grant insert on public.leads, public.visitas to anon, authenticated;
 grant select, update, delete on public.leads to authenticated;
 grant select on public.visitas, public.admins to authenticated;
 
--- >>> TROQUE PELO E-MAIL QUE VAI ENTRAR NO PAINEL (pode repetir a linha para mais pessoas)
-insert into public.admins (email) values ('SEU-EMAIL@exemplo.com') on conflict do nothing;
+-- Usuário do painel: "reullen" (no Supabase ele é o e-mail reullen@rrengenhariasolar-pa.com.br)
+-- Para mais pessoas, repita a linha com outro nome@rrengenhariasolar-pa.com.br
+insert into public.admins (email) values ('reullen@rrengenhariasolar-pa.com.br') on conflict do nothing;
