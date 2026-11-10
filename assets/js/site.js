@@ -85,18 +85,18 @@ if (exitEl) {
   $('#exitClose').onclick = hide; $('#exitSkip').onclick = hide;
   exitEl.addEventListener('click', e => { if (e.target === exitEl) hide(); });
   addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
+  // Só aparece quando a pessoa realmente vai SAIR do site:
+  // Computador: o mouse sai pelo topo da janela (indo fechar a aba ou voltar)
   document.addEventListener('mouseout', e => { if (!e.relatedTarget && e.clientY <= 5) showExit(); });
-  let lastY = scrollY, lastT = Date.now();
-  addEventListener('scroll', () => {
-    const now = Date.now(), dy = scrollY - lastY, dt = now - lastT || 1;
-    if (isTouch && scrollY > 900 && dy < 0 && (-dy / dt) > 2.2) showExit();
-    lastY = scrollY; lastT = now;
-  }, {passive:true});
-  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && isTouch && Date.now() - startT > 15000) showExit(); });
+  // Celular: a pessoa aperta "voltar" para sair do site
   if (isTouch) {
     try {
       history.pushState({rr:1}, '');
-      addEventListener('popstate', () => { if (!exitShown) { showExit(); history.pushState({rr:1}, ''); } else { history.back(); } });
+      addEventListener('popstate', () => {
+        if (history.state && history.state.rr) return;            // só navegou dentro da página
+        if (!exitShown && Date.now() - startT > 6000) { showExit(); history.pushState({rr:1}, ''); }
+        else { history.back(); }                                   // deixa sair normalmente
+      });
     } catch(e) {}
   }
 }
@@ -338,6 +338,11 @@ async function openBot(){
   setTimeout(() => { const i = $('#botInput'); if (i && !isTouch) i.focus(); }, 300);
 }
 if (bot && botBtn) {
+  // "Estamos online": aparece aos 3,5 s, some depois de 8 s e volta quando a pessoa chega ao fim do site
+  const lblOn = () => botBtn.classList.add('show-lbl'), lblOff = () => botBtn.classList.remove('show-lbl');
+  setTimeout(() => { lblOn(); setTimeout(() => { if (!nearEnd()) lblOff(); }, 8000); }, 3500);
+  const nearEnd = () => scrollY + innerHeight >= document.documentElement.scrollHeight - 700;
+  addEventListener('scroll', () => { if (Date.now() - startT > 11500) nearEnd() ? lblOn() : lblOff(); }, {passive:true});
   $('#botForm').addEventListener('submit', e => {
     e.preventDefault(); const i = $('#botInput'); const v = i.value.trim(); if (!v) return;
     i.value = ''; body.querySelectorAll('.opts').forEach(o => o.remove()); me(v); livre(v);
