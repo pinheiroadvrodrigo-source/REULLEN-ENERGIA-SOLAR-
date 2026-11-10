@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pinheiroadvrodrigo-source.github.io/REULLEN-ENERGIA-SOLAR-/sitemap.xml
+Sitemap: https://www.rrengenhariasolar-pa.com.br/sitemap.xml
