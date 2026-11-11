@@ -81,7 +81,7 @@
     if (!d.consentimento) { msg.textContent = 'Para continuar, marque a autorização de contato.'; msg.classList.add('erro'); return; }
     btn.disabled = true; btn.textContent = 'Enviando...';
     const salvo = await window.rrSalvarLead(Object.assign({ origem: 'formulario' }, d));
-    const texto = `Olá! Acabei de me cadastrar no site e quero meu estudo de economia.\n\n👤 Nome: ${d.nome}\n📱 WhatsApp: ${d.whatsapp}\n📍 ${d.cidade || ''}${d.bairro ? ' - ' + d.bairro : ''}\n🏠 Imóvel: ${d.tipo}\n💡 Conta de luz: ${d.conta}`;
+    const texto = `Olá! Acabei de me cadastrar no site e quero meu orçamento grátis.\n\n👤 Nome: ${d.nome}\n📱 WhatsApp: ${d.whatsapp}\n📍 ${d.cidade || ''}${d.bairro ? ' - ' + d.bairro : ''}\n🏠 Imóvel: ${d.tipo}\n💡 Conta de luz: ${d.conta}`;
     if (wa && typeof waLink === 'function') { wa.href = waLink(texto); wa.hidden = false; }
     msg.textContent = salvo
       ? `Cadastro recebido, ${d.nome.split(' ')[0]}! ✅ Nossa equipe vai te chamar no WhatsApp. Se quiser agilizar, toque no botão abaixo e mande a foto da sua conta de luz.`
