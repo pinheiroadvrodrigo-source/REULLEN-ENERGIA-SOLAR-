@@ -9,6 +9,6 @@
    NUNCA coloque aqui a chave "service_role" / "secret".
    ========================================================== */
 window.RR_CONFIG = {
-  supabaseUrl: 'COLE_AQUI_O_PROJECT_URL',
-  supabaseKey: 'COLE_AQUI_A_CHAVE_ANON_PUBLIC'
+  supabaseUrl: 'https://coseujrvzsbobvrqzlgv.supabase.co',
+  supabaseKey: 'sb_publishable_cAKdbpCxdpQKIhTMh5748w_KYNIN8Zg'
 };
