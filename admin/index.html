@@ -14,7 +14,14 @@
 [hidden]{display:none!important}
 body{background:var(--bg)}
 .adm-top{background:var(--navy);color:#fff;position:sticky;top:0;z-index:20;box-shadow:0 8px 30px -12px rgba(0,0,0,.55)}
-.adm-top .wrap{display:flex;align-items:center;justify-content:space-between;height:70px;gap:12px}
+.adm-top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:70px;padding-top:10px;padding-bottom:10px;gap:12px}
+.adm-top .brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 auto;text-decoration:none;color:#fff}
+.adm-top .brand img{flex:none;border-radius:12px}
+.adm-top .brand div{display:flex;flex-direction:column;line-height:1.1;min-width:0}
+.adm-top .brand b{white-space:nowrap;font-size:1.15rem}
+.adm-top .brand small{white-space:nowrap;font-size:.7rem;letter-spacing:.12em;color:var(--sun,#f5b82e);margin-top:3px}
+.adm-top .who{flex:none}
+.adm-top .who span{white-space:nowrap}
 .adm-top .who{display:flex;align-items:center;gap:12px;font-size:.9rem;color:#b8c6e0}
 .adm-top button{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:8px 16px;font-family:inherit;font-weight:700;cursor:pointer}
 .login{min-height:calc(100vh - 70px);display:grid;place-items:center;padding:30px 16px}
@@ -64,6 +71,8 @@ table.tb{width:100%;border-collapse:collapse;font-size:.92rem;min-width:860px}
 .vazio{padding:30px;text-align:center;color:var(--muted)}
 .load{color:var(--muted);padding:30px;text-align:center}
 @media (max-width:900px){.kpis{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}}
+@media (max-width:520px){.adm-top .brand img{width:40px;height:40px}.adm-top .brand b{font-size:1rem}.adm-top .who{gap:8px;font-size:.85rem}.adm-top button{padding:7px 14px}}
+@media (max-width:380px){.adm-top .who span{display:none}}
 </style>
 </head>
 <body>
@@ -168,7 +177,7 @@ function sair(){ sess = null; try { sessionStorage.removeItem('rr_sess'); } catc
 $('#sair').onclick = sair;
 
 async function abrir(){
-  $('#telaLogin').hidden = true; $('#telaPainel').hidden = false; $('#who').hidden = false; $('#whoEmail').textContent = sess.email || '';
+  $('#telaLogin').hidden = true; $('#telaPainel').hidden = false; $('#who').hidden = false; $('#whoEmail').textContent = 'Olá, ' + String(sess.email || '').split('@')[0];
   await carregar();
 }
 document.querySelectorAll('#periodo button').forEach(b => b.onclick = () => { document.querySelectorAll('#periodo button').forEach(x => x.classList.remove('on')); b.classList.add('on'); dias = +b.dataset.d; carregar(); });
