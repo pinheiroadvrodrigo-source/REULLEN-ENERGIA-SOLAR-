@@ -366,3 +366,68 @@ if (bot && botBtn) {
     if (!started && !(exitEl && exitEl.classList.contains('show')) && innerWidth > 780 && store.get('rr_bot') !== '1') { store.set('rr_bot', '1'); openBot(); }
   }, 25000);
 }
+
+/* ==========================================================
+   CARROSSÉIS — andam sozinhos para o lado, param ao tocar
+   ========================================================== */
+(function () {
+  const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.car').forEach(car => {
+    const track = car.querySelector('.car-track');
+    const itens = [...track.children];
+    itens.forEach(it => { const c = it.cloneNode(true); c.setAttribute('aria-hidden', 'true'); track.appendChild(c); }); // loop infinito
+    const speed = parseFloat(car.dataset.speed || '0.4') * (car.dataset.dir === '-1' ? -1 : 1);
+    let pausa = false, retomar = null, pos = 0, ult = 0, visivel = false;
+    const metade = () => track.scrollWidth / 2;
+    const parar = (ms) => { pausa = true; clearTimeout(retomar); if (ms) retomar = setTimeout(() => { if (![...car.querySelectorAll('video')].some(v => !v.paused)) pausa = false; }, ms); };
+    if (speed < 0) requestAnimationFrame(() => { track.scrollLeft = metade(); pos = track.scrollLeft; });
+    new IntersectionObserver(e => { visivel = e[0].isIntersecting; }, { rootMargin: '100px' }).observe(car);
+    function passo(t) {
+      const dt = ult ? Math.min(t - ult, 50) : 16; ult = t;
+      if (!pausa && visivel && !reduz) {
+        pos += speed * dt / 16;
+        const m = metade();
+        if (pos >= m) pos -= m; if (pos < 0) pos += m;
+        track.scrollLeft = pos;
+      } else pos = track.scrollLeft;
+      requestAnimationFrame(passo);
+    }
+    requestAnimationFrame(passo);
+    car.addEventListener('mouseenter', () => parar());
+    car.addEventListener('mouseleave', () => parar(800));
+    track.addEventListener('touchstart', () => parar(), { passive: true });
+    track.addEventListener('touchend', () => parar(3500), { passive: true });
+    track.addEventListener('wheel', () => parar(2500), { passive: true });
+    // arrastar com o mouse no computador
+    let arrastando = false, x0 = 0, s0 = 0, moveu = false;
+    track.addEventListener('mousedown', e => { arrastando = true; moveu = false; x0 = e.pageX; s0 = track.scrollLeft; track.classList.add('drag'); parar(); });
+    addEventListener('mousemove', e => { if (!arrastando) return; const dx = e.pageX - x0; if (Math.abs(dx) > 4) moveu = true; track.scrollLeft = s0 - dx; });
+    addEventListener('mouseup', () => { if (!arrastando) return; arrastando = false; track.classList.remove('drag'); pos = track.scrollLeft; });
+    track.addEventListener('click', e => { if (moveu) { e.preventDefault(); e.stopPropagation(); moveu = false; } }, true);
+    // setas
+    const pulo = () => (itens[0] ? itens[0].getBoundingClientRect().width + 16 : 300);
+    car.querySelector('.prev').onclick = () => { parar(4000); track.scrollBy({ left: -pulo(), behavior: 'smooth' }); };
+    car.querySelector('.next').onclick = () => { parar(4000); track.scrollBy({ left: pulo(), behavior: 'smooth' }); };
+    // vídeos: tocar com som, pausa o carrossel enquanto toca
+    track.addEventListener('click', e => {
+      const box = e.target.closest('.vidc'); if (!box) return;
+      const v = box.querySelector('video');
+      document.querySelectorAll('.vidc video, .vid video').forEach(o => { if (o !== v && !o.paused) { o.pause(); (o.closest('.vidc') || o.parentElement).classList.remove('playing'); } });
+      if (v.paused) { v.play(); box.classList.add('playing'); parar(); }
+      else { v.pause(); box.classList.remove('playing'); parar(2000); }
+      v.onended = () => { box.classList.remove('playing'); parar(1500); };
+    });
+  });
+  // foto ampliada
+  const lb = document.getElementById('lightbox');
+  if (lb) {
+    const fechar = () => { lb.hidden = true; };
+    document.addEventListener('click', e => {
+      const img = e.target.closest('.car-item img'); if (!img) return;
+      lb.querySelector('img').src = img.src; lb.querySelector('img').alt = img.alt;
+      lb.querySelector('p').textContent = img.alt; lb.hidden = false;
+    });
+    lb.addEventListener('click', e => { if (e.target === lb || e.target.classList.contains('lb-x')) fechar(); });
+    addEventListener('keydown', e => { if (e.key === 'Escape') fechar(); });
+  }
+})();
